@@ -1,416 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varun Teja | Neon Glass Portfolio</title>
-    <style>
-        :root {
-            --bg: #030303;
-            --neon-saffron: #FF9F00;
-            --neon-green: #39FF14;
-            --neon-white: #FFFFFF;
-            --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #e0e0e0;
-            --text-dim: #999999;
-            
-            /* Spacing Scale */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 2rem;
-            --space-lg: 4rem;
-            --space-xl: 8rem;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Varun Teja | Neon Glass Portfolio</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: crosshair;
-        }
-
-        body {
-            background-color: var(--bg);
-            /* Modern System Font Stack - High-end and clean */
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        code, pre, .mono {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-        }
-
-        /* Liquid Animated Background */
-        .liquid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            filter: blur(100px);
-            opacity: 0.3;
-        }
-
-        .blob {
-            position: absolute;
-            width: 60vw;
-            height: 60vw;
-            border-radius: 50%;
-            animation: move 25s infinite alternate ease-in-out;
-        }
-
-        .blob-1 { background: var(--neon-saffron); top: -20%; left: -10%; }
-        .blob-2 { background: var(--neon-green); bottom: -20%; right: -10%; animation-delay: -7s; }
-        .blob-3 { background: #0044ff; top: 30%; left: 20%; width: 40vw; height: 40vw; animation-delay: -12s; }
-
-        @keyframes move {
-            from { transform: translate(0, 0) rotate(0deg) scale(1); }
-            to { transform: translate(15%, 15%) rotate(180deg) scale(1.2); }
-        }
-
-        /* CRT/Scanline Overlays */
-        body::after {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%);
-            z-index: 100;
-            pointer-events: none;
-            background-size: 100% 4px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: var(--space-lg) var(--space-md);
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Glassmorphism Sections */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: clamp(2rem, 5vw, 4rem);
-            margin-bottom: var(--space-lg);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .glass-panel:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.04);
-            transform: translateY(-5px);
-        }
-
-        /* Header */
-        header {
-            text-align: left;
-            margin-bottom: var(--space-xl);
-            padding: 0 var(--space-sm);
-        }
-
-        .neon-text-saffron {
-            color: var(--neon-saffron);
-            text-shadow: 0 0 20px rgba(255, 159, 0, 0.4);
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.04em;
-            margin-bottom: 1rem;
-            line-height: 0.9;
-        }
-
-        .neon-badge {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
-            display: inline-flex;
-            align-items: center;
-            background: rgba(57, 255, 20, 0.05);
-            padding: 0.4rem 1.2rem;
-            border: 1px solid rgba(57, 255, 20, 0.3);
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 2rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-family: monospace;
-        }
-
-        .tagline {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            color: var(--text-dim);
-            max-width: 700px;
-            line-height: 1.4;
-            font-weight: 400;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: var(--space-lg);
-            flex-wrap: wrap;
-            padding: 0 var(--space-sm);
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-weight: 600;
-            font-size: 0.75rem;
-            padding: 0.8rem 1.8rem;
-            border: 1px solid var(--glass-border);
-            border-radius: 100px;
-            background: var(--glass-bg);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .nav-link:hover {
-            color: #fff;
-            border-color: var(--neon-white);
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        h2 {
-            font-size: 1.75rem;
-            color: var(--neon-white);
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-weight: 700;
-        }
-
-        h2::after {
-            content: "";
-            flex-grow: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--glass-border), transparent);
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .skill-group h3 {
-            font-size: 0.7rem;
-            color: var(--neon-saffron);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: 800;
-            font-family: monospace;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .skill-tag {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: var(--text-main);
-            transition: 0.3s;
-        }
-
-        .skill-tag:hover {
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-        }
-
-        /* Experience Entry */
-        .entry {
-            margin-bottom: 4rem;
-        }
-
-        .entry:last-child { margin-bottom: 0; }
-
-        .entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
-        }
-
-        .entry-title {
-            color: var(--neon-white);
-            font-size: 1.6rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .entry-date {
-            font-size: 0.75rem;
-            color: var(--neon-green);
-            font-family: monospace;
-            white-space: nowrap;
-            padding-top: 0.5rem;
-        }
-
-        .entry-role {
-            color: var(--neon-green);
-            font-family: monospace;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .bullet-list {
-            list-style: none;
-        }
-
-        .bullet-list li {
-            margin-bottom: 1rem;
-            position: relative;
-            padding-left: 2rem;
-            font-size: 1rem;
-            color: var(--text-dim);
-        }
-
-        .bullet-list li::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0.7rem;
-            width: 12px;
-            height: 1px;
-            background: var(--neon-saffron);
-            box-shadow: 0 0 8px var(--neon-saffron);
-        }
-
-        /* Footer / Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .contact-card {
-            padding: 2.5rem;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            text-decoration: none;
-            color: #fff;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .contact-card:hover {
-            border-color: var(--neon-saffron);
-            background: rgba(255, 159, 0, 0.05);
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(255, 159, 0, 0.1);
-        }
-
-        .contact-card span {
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: 700;
-        }
-
-        .contact-card strong {
-            font-size: 1.1rem;
-            letter-spacing: -0.01em;
-        }
-
-        .status-bar {
-            margin-top: var(--space-lg);
-            padding: 2rem var(--space-sm);
-            border-top: 1px solid var(--glass-border);
-            font-size: 0.65rem;
-            display: flex;
-            justify-content: space-between;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-family: monospace;
-        }
-
-        /* Animations */
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .cursor { display: inline-block; width: 3px; height: 1.4rem; background: var(--neon-green); animation: blink 1s infinite; vertical-align: middle; margin-left: 8px; box-shadow: 0 0 15px var(--neon-green); }
-
-        @media (max-width: 768px) {
-            .container { padding: var(--space-md) var(--space-sm); }
-            .entry-header { flex-direction: column; gap: 0.2rem; }
-            .nav-link { width: 100%; text-align: center; }
-        }
-        /* Modal System */
-#projectModal {
-    position: fixed;
-    inset: 0;
-    z-index: 999;
+<style>
+:root{
+    --bg:#030303;
+    --neon-saffron:#FF9F00;
+    --neon-green:#39FF14;
+    --neon-white:#FFFFFF;
+    --glass-bg:rgba(255,255,255,0.02);
+    --glass-border:rgba(255,255,255,0.08);
+    --text-main:#e0e0e0;
+    --text-dim:#999;
+    --space-sm:1rem;
+    --space-md:2rem;
+    --space-lg:4rem;
+    --space-xl:8rem;
 }
 
-.modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(20px);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    cursor:crosshair;
 }
 
-.modal-content {
-    position: relative;
-    max-width: 600px;
-    margin: 15vh auto;
-    z-index: 1000;
-    animation: fadeIn 0.4s ease;
+body{
+    background:var(--bg);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--text-main);
+    line-height:1.7;
+    overflow-x:hidden;
+    min-height:100vh;
 }
 
-@keyframes fadeIn {
-    from { opacity:0; transform: translateY(20px); }
-    to { opacity:1; transform: translateY(0); }
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(rgba(0,0,0,0) 50%,rgba(0,0,0,0.05) 50%);
+    background-size:100% 4px;
+    z-index:100;
 }
 
-    </style>
+/* Liquid Background */
+.liquid-bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    filter:blur(100px);
+    opacity:.3;
+}
+.blob{
+    position:absolute;
+    width:60vw;
+    height:60vw;
+    border-radius:50%;
+    animation:move 25s infinite alternate ease-in-out;
+}
+.blob-1{background:var(--neon-saffron);top:-20%;left:-10%;}
+.blob-2{background:var(--neon-green);bottom:-20%;right:-10%;animation-delay:-7s;}
+.blob-3{background:#0044ff;top:30%;left:20%;width:40vw;height:40vw;animation-delay:-12s;}
+
+@keyframes move{
+    from{transform:translate(0,0) rotate(0) scale(1);}
+    to{transform:translate(15%,15%) rotate(180deg) scale(1.2);}
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:var(--space-lg) var(--space-md);
+    position:relative;
+    z-index:10;
+}
+
+.glass-panel{
+    background:var(--glass-bg);
+    backdrop-filter:blur(24px);
+    border:1px solid var(--glass-border);
+    border-radius:24px;
+    padding:clamp(2rem,5vw,4rem);
+    margin-bottom:var(--space-lg);
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    transition:.4s cubic-bezier(.165,.84,.44,1);
+}
+
+.glass-panel:hover{
+    background:rgba(255,255,255,.04);
+    border-color:rgba(255,255,255,.15);
+}
+
+/* Header */
+.neon-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    font-size:.75rem;
+    font-family:monospace;
+    color:var(--neon-green);
+    border:1px solid rgba(57,255,20,.3);
+    padding:.4rem 1.2rem;
+    border-radius:999px;
+    margin-bottom:2rem;
+}
+
+.neon-text{
+    font-size:clamp(2.5rem,8vw,5rem);
+    font-weight:800;
+    color:var(--neon-saffron);
+    text-shadow:0 0 20px rgba(255,159,0,.4);
+    letter-spacing:-.04em;
+    line-height:.9;
+}
+
+.tagline{
+    max-width:700px;
+    color:var(--text-dim);
+    font-size:clamp(1.1rem,3vw,1.5rem);
+}
+
+.cursor{
+    display:inline-block;
+    width:3px;
+    height:1.4rem;
+    background:var(--neon-green);
+    animation:blink 1s infinite;
+    margin-left:8px;
+}
+
+@keyframes blink{50%{opacity:0;}}
+
+/* Nav */
+nav{
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+    margin:var(--space-lg) 0;
+}
+.nav-link{
+    text-decoration:none;
+    color:var(--text-dim);
+    font-size:.75rem;
+    padding:.8rem 1.8rem;
+    border:1px solid var(--glass-border);
+    border-radius:999px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    background:var(--glass-bg);
+    transition:.3s;
+}
+.nav-link:hover{
+    color:#fff;
+    border-color:#fff;
+}
+
+/* Sections */
+h2{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    margin-bottom:3rem;
+}
+h2::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg,var(--glass-border),transparent);
+}
+
+.entry{margin-bottom:4rem;}
+.entry-header{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+.entry-title{font-size:1.6rem;font-weight:700;}
+.entry-date{font-family:monospace;color:var(--neon-green);font-size:.75rem;}
+.entry-role{color:var(--neon-green);font-family:monospace;margin:1rem 0;}
+
+.bullet-list{list-style:none;}
+.bullet-list li{
+    padding-left:2rem;
+    margin-bottom:1rem;
+    color:var(--text-dim);
+    position:relative;
+}
+.bullet-list li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:.7rem;
+    width:12px;
+    height:1px;
+    background:var(--neon-saffron);
+}
+
+/* Modal */
+#projectModal{
+    position:fixed;
+    inset:0;
+    display:none;
+    z-index:999;
+}
+.modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(20px);
+}
+.modal-content{
+    max-width:600px;
+    margin:15vh auto;
+    position:relative;
+    animation:fadeIn .4s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* Footer */
+.contact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.5rem;
+}
+.contact-card{
+    padding:2.5rem;
+    border-radius:20px;
+    border:1px solid var(--glass-border);
+    background:rgba(0,0,0,.4);
+    text-decoration:none;
+    color:#fff;
+    transition:.3s;
+}
+.contact-card:hover{
+    border-color:var(--neon-saffron);
+}
+
+.status-bar{
+    margin-top:var(--space-lg);
+    padding-top:2rem;
+    border-top:1px solid var(--glass-border);
+    font-family:monospace;
+    font-size:.65rem;
+    display:flex;
+    justify-content:space-between;
+    color:#555;
+}
+</style>
 </head>
 
-<!-- Glass Modal -->
-<div id="projectModal" style="display:none;">
-    <div class="modal-backdrop"></div>
+<body>
 
+<div class="liquid-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- Modal -->
+<div id="projectModal">
+    <div class="modal-backdrop" onclick="closeProjectModal()"></div>
     <div class="glass-panel modal-content">
         <h2 id="modalTitle">Project</h2>
-
-        <p class="tagline" style="margin-bottom:2rem;">
-            You’re about to open an external production system.
-        </p>
-
-        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <p class="tagline">You’re about to open an external production system.</p>
+        <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
             <button class="nav-link" id="openSameTab">Open Here</button>
             <button class="nav-link" id="openNewTab">Open New Tab</button>
             <button class="nav-link" onclick="closeProjectModal()">Cancel</button>
@@ -418,206 +281,102 @@
     </div>
 </div>
 
-    
-<body>
+<div class="container">
+<header>
+    <div class="neon-badge">SYSTEM_LIVE: PORTFOLIO_V2.1</div>
+    <h1 class="neon-text">Varun Teja</h1>
+    <p class="tagline">Founding Engineer & Full-Stack Architect<span class="cursor"></span></p>
+</header>
 
-    <div class="liquid-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+<nav>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#experience" class="nav-link">Build Log</a>
+    <a href="#marathon" class="nav-link">Marathon</a>
+    <a href="#skills" class="nav-link">Stack</a>
+    <a href="#contact" class="nav-link">Connect</a>
+</nav>
 
-    <div class="container">
-        <header>
-            <div class="neon-badge">
-                <span style="background: var(--neon-green); width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; display: inline-block; box-shadow: 0 0 10px var(--neon-green);"></span>
-                SYSTEM_LIVE: PORTFOLIO_V2.1
-            </div>
-            <h1 class="neon-text-saffron">Varun Teja</h1>
-            <p class="tagline">Founding Engineer & Full-Stack Architect. Orchestrating high-performance SaaS ecosystems from conceptual architecture to production deployment.<span class="cursor"></span></p>
-        </header>
-
-        <nav>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#experience" class="nav-link">Build Log</a>
-            <a href="#skills" class="nav-link">Stack</a>
-            <a href="#contact" class="nav-link">Connect</a>
-        </nav>
-
-        <section id="about" class="glass-panel">
-            <h2>About Terminal</h2>
-            <p>Founder-level full-stack engineer with hands-on experience building and leading early-stage SaaS and marketplace platforms. I own the entire technical lifecycle: from initial systems architecture to secure cloud-native deployment and high-stakes investor demos.</p>
-        </section>
-
-        <section id="experience" class="glass-panel">
-            <h2>Experience Log</h2>
-            
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">VCX Mart</span>
-                    <span class="entry-date">2025 // ACTIVE</span>
-                </div>
-                <div class="entry-role">Founder & CEO — Primary Technical Owner</div>
-                <ul class="bullet-list">
-                    <li>Engineered complete multi-tenant marketplace architecture from 0 to 1.</li>
-                    <li>Designed scalable API layers and complex relational data schemas.</li>
-                    <li>Orchestrating technical roadmaps under aggressive early-stage growth constraints.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Tracxi</span>
-                    <span class="entry-date">2019 // ACTIVE</span>
-                </div>
-                <div class="entry-role">Co-Founder — Logistics Platform</div>
-                <ul class="bullet-list">
-                    <li>Developed core system logic for complex transportation and lorry workflows.</li>
-                    <li>Led hands-on feature development for real-time logistics optimization.</li>
-                    <li>Validated product-market fit through rapid, high-velocity iteration cycles.</li>
-                </ul>
-            </div>
-                <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
-            <button class="nav-link" onclick="openProjectModal('VCX Mart','https://www.vcxmart.com')">
-                View VCX Mart
-            </button>
-            <button class="nav-link" onclick="openProjectModal('Tracxi','https://play.google.com/store/apps/details?id=com.vmax.tracxi&hl=en-US')">
-                View Tracxi App
-            </button>
-        </div>
-    </div>
-        </section>
-
-    <section id="marathon" class="glass-panel">
-    <h2>Drop Shipping Marathon</h2>
-
-    <div class="entry">
-        <div class="entry-header">
-            <span class="entry-title">VCX Mart × Drop Shipping Marathon</span>
-            <span class="entry-date">2026 // FLAGSHIP EVENT</span>
-        </div>
-
-        <div class="entry-role">Founder · Architect · Event Designer</div>
-
-        <ul class="bullet-list">
-            <li>Designed and launched a nationwide competitive drop-shipping ecosystem for Indian sellers.</li>
-            <li>Architected seller onboarding, performance tracking, shipment validation, and reward logic.</li>
-            <li>Introduced milestone-based incentives with a ₹1,00,000 flagship reward for top performers.</li>
-            <li>Integrated marketplace analytics to measure customer acquisition, fulfillment success, and seller velocity.</li>
-            <li>Positioned VCX Mart as a creator-driven commerce platform bridging logistics, payments, and growth.</li>
-        </ul>
-
-    
+<section id="about" class="glass-panel">
+<h2>About</h2>
+<p>Founder-level engineer building scalable marketplaces, logistics systems and SaaS platforms from zero to production.</p>
 </section>
 
-        
-        <section id="skills" class="glass-panel">
-            <h2>Stack Variables</h2>
-            <div class="skills-grid">
-                <div class="skill-group">
-                    <h3>Frontend & Logic</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Full-Stack Dev</span>
-                        <span class="skill-tag">System Design</span>
-                        <span class="skill-tag">REST APIs</span>
-                        <span class="skill-tag">Auth Systems</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3>Infrastructure</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Azure</span>
-                        <span class="skill-tag">CI/CD Pipelines</span>
-                        <span class="skill-tag">Monitoring</span>
-                        <span class="skill-tag">Cloud Security</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3>Execution</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Founder Mentality</span>
-                        <span class="skill-tag">Decision-Making</span>
-                        <span class="skill-tag">Investor Demos</span>
-                        <span class="skill-tag">Scaling 0-1</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section id="experience" class="glass-panel">
+<h2>Experience</h2>
 
-        <footer id="contact">
-            <div class="contact-grid">
-                <a href="mailto:varuntejabodepudi@gmail.com" class="contact-card">
-                    <span>Direct Terminal</span>
-                    <strong>varuntejabodepudi@gmail.com</strong>
-                </a>
-                <a href="https://github.com/vtcxxager" target="_blank" class="contact-card">
-                    <span>Source Control</span>
-                    <strong>github.com/vtcxxager</strong>
-                </a>
-                <a href="https://www.linkedin.com/in/varun-teja-bodepudi-a174a327b/" target="_blank" class="contact-card">
-                    <span>Professional Mesh</span>
-                    <strong>linkedin.com/varun-teja</strong>
-                </a>
-            </div>
-            
-            <div class="status-bar">
-                <span>VARUN_TEJA_OS // BUILT_FOR_PERFORMANCE</span>
-                <span>LOC: INDIA_REMOTE</span>
-                <span>&copy; 2025 ALL_SYSTEMS_GO</span>
-            </div>
-        </footer>
-    </div>
+<div class="entry">
+<div class="entry-header">
+<span class="entry-title">VCX Mart</span>
+<span class="entry-date">2025 — Active</span>
+</div>
+<div class="entry-role">Founder & Architect</div>
+<ul class="bullet-list">
+<li>Designed multi-tenant marketplace architecture.</li>
+<li>Implemented analytics-driven seller performance systems.</li>
+</ul>
+<button class="nav-link" onclick="openProjectModal('VCX Mart','https://www.vcxmart.com')">View Project</button>
+</div>
 
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+<div class="entry">
+<div class="entry-header">
+<span class="entry-title">Tracxi</span>
+<span class="entry-date">2019 — Active</span>
+</div>
+<div class="entry-role">Co-Founder</div>
+<ul class="bullet-list">
+<li>Built logistics optimization workflows.</li>
+<li>Shipped Android app to production.</li>
+</ul>
+<button class="nav-link" onclick="openProjectModal('Tracxi','https://play.google.com/store/apps/details?id=com.vmax.tracxi&hl=en-US')">View App</button>
+</div>
+</section>
 
-        // Interactive Glass Tilt
-        const panels = document.querySelectorAll('.glass-panel');
-        document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 100;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
-            
-            panels.forEach(panel => {
-                panel.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-5px)`;
-            });
-        });
-    </script>
-    <script>
-    let currentProjectUrl = "";
+<section id="marathon" class="glass-panel">
+<h2>Drop Shipping Marathon</h2>
+<ul class="bullet-list">
+<li>Nationwide seller competition platform.</li>
+<li>₹1,00,000 performance-based reward system.</li>
+<li>Analytics-driven growth engine.</li>
+</ul>
+</section>
 
-    function openProjectModal(title, url) {
-        currentProjectUrl = url;
-        document.getElementById("modalTitle").innerText = title;
-        document.getElementById("projectModal").style.display = "block";
+<section id="skills" class="glass-panel">
+<h2>Stack</h2>
+<p>React · System Design · Cloud · CI/CD · Marketplaces</p>
+</section>
 
-        document.getElementById("openSameTab").onclick = () => {
-            window.location.href = currentProjectUrl;
-        };
+<footer id="contact">
+<div class="contact-grid">
+<a class="contact-card" href="mailto:varuntejabodepudi@gmail.com">Email</a>
+<a class="contact-card" href="https://github.com/vtcxxager" target="_blank">GitHub</a>
+<a class="contact-card" href="https://linkedin.com/in/varun-teja-bodepudi-a174a327b/" target="_blank">LinkedIn</a>
+</div>
 
-        document.getElementById("openNewTab").onclick = () => {
-            window.open(currentProjectUrl, "_blank");
-        };
-    }
+<div class="status-bar">
+<span>VARUN_TEJA_OS</span>
+<span>INDIA_REMOTE</span>
+<span>© 2025</span>
+</div>
+</footer>
+</div>
 
-    function closeProjectModal() {
-        document.getElementById("projectModal").style.display = "none";
-    }
+<script>
+let currentUrl="";
 
-    // Disable Right Click
-    document.addEventListener("contextmenu", e => e.preventDefault());
+function openProjectModal(title,url){
+    currentUrl=url;
+    document.getElementById("modalTitle").innerText=title;
+    document.getElementById("projectModal").style.display="block";
+    document.getElementById("openSameTab").onclick=()=>location.href=url;
+    document.getElementById("openNewTab").onclick=()=>window.open(url,"_blank");
+}
+
+function closeProjectModal(){
+    document.getElementById("projectModal").style.display="none";
+}
+
+document.addEventListener("contextmenu",e=>e.preventDefault());
 </script>
 
 </body>
-
 </html>
-
